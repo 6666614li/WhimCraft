@@ -9,9 +9,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "BOP-1.12.x-7.0.x" ]
+    branches: [ "WhimCraft" ]
   pull_request:
-    branches: [ "BOP-1.12.x-7.0.x" ]
+    branches: [ "WhimCraft" ]
 
 jobs:
   build:
