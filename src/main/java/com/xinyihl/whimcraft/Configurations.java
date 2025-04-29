@@ -3,6 +3,9 @@ package com.xinyihl.whimcraft;
 import com.cleanroommc.configanytime.ConfigAnytime;
 import net.minecraftforge.common.config.Config;
 
+import java.util.Collections;
+import java.util.List;
+
 @Config(modid = Tags.MOD_ID, name = Tags.MOD_NAME)
 public class Configurations {
 
@@ -29,6 +32,9 @@ public class Configurations {
 
     @Config.Comment("植物魔法设置")
     public static final BotaniaConfig BOTANIA_CONFIG = new BotaniaConfig();
+
+    @Config.Comment("区块清除配置")
+    public static final ChunkPurgeConfig CHUNCK_CONFIG = new ChunkPurgeConfig();
 
     static {
         ConfigAnytime.register(Configurations.class);
@@ -66,6 +72,23 @@ public class Configurations {
         public AECellConfig AECellConfig = new AECellConfig();
     }
 
+    public static class ChunkPurgeConfig{
+        @Config.Comment("尝试卸载区块的间隔时间(tick) 必须是大于 0 的整数")
+        public int chunkUnloadDelay = 600;
+        @Config.Comment("是否启用自动区块清除")
+        public boolean enabled = false;
+        @Config.Comment("记录从每个维度卸载的区块数，以及卸载区块所花费的时间")
+        public boolean debug = false;
+        @Config.Comment("每个玩家周围的忽略区块卸载的半径")
+        public int pradius = 4;
+        @Config.Comment("每个强制加载的区块周围忽略区块卸载的半径。忽略半径之外的所有区块将被强制卸载")
+        public int tradius = 5;
+        @Config.Comment("由于生物生成行为而加载的区块周围忽略区块卸载的半径")
+        public int sradius = 3;
+        @Config.Comment("进行检查的维度id")
+        public Integer[] dimlist = {0};
+    }
+
     public static class ASModConfig {
         @Config.Comment("星辉等级(覆盖星辉原版配置文件的设置)")
         public int asLevelCap = 30;
@@ -84,6 +107,9 @@ public class Configurations {
     public static class BotaniaConfig {
         @Config.Comment("jei配方是否显示具体魔力消耗")
         public boolean showMana = false;
+
+        @Config.Comment("是否允许将产能花直接连接到魔力池")
+        public boolean linkFlowerToPool = false;
     }
 
     public static class AECellConfig {
