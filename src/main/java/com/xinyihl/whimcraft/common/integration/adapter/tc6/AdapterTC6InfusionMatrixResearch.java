@@ -128,16 +128,18 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 }
             }
 
-private static final ResourceLocation PRIMORDIAL_PEARL_RL = new ResourceLocation("thaumcraft", "primordial_pearl");
+            private static final ResourceLocation PRIMORDIAL_PEARL_RL = new ResourceLocation("thaumcraft", "primordial_pearl");
 
-Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
-if (primordialPearlItem != null) {
-    ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
+            Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
+
+            if (primordialPearlItem != null) {
+                ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
     
-    for (ItemStack inputStack : inputStacks) {
-        if (inputStack == null || inputStack.isEmpty()) continue;
+            for (ItemStack inputStack : inputStacks) {
 
-        if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
+                if (inputStack == null || inputStack.isEmpty()) continue;
+
+            if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
             ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
 
             int outAmount = Math.round(RecipeModifier.applyModifiers(
