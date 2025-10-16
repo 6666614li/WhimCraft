@@ -128,8 +128,13 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                         machineRecipe.addRequirement(new RequirementItem(IOType.OUTPUT, copied));
                         type = false;
                     }
-                }
-                Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
+                }                
+            }
+
+            Collection<Recipe> recipes = getRecipeRegistry();
+
+            for (Recipe recipe : recipes) {
+            Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
 
                 if (primordialPearlItem != null) {
 
@@ -163,12 +168,6 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 }
             }
             }
-
-
-                
-
-
-            
 
             // Research tooltip and runtime check
             String research = recipe.getResearch();
