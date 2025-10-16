@@ -130,6 +130,8 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 }
             }
 
+            Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
+
             if (primordialPearlItem != null) {
                 ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
                 
