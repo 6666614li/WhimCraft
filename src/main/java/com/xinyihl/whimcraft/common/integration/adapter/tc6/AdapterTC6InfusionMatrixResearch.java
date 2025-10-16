@@ -128,38 +128,36 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 }
             }
 
-            private static final ResourceLocation PRIMORDIAL_PEARL_RL = new ResourceLocation("thaumcraft", "primordial_pearl");
-
             Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
 
             if (primordialPearlItem != null) {
                 ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
-    
-            for (ItemStack inputStack : inputStacks) {
+                
+                for (ItemStack inputStack : inputStacks) {
+                    if (inputStack == null || inputStack.isEmpty()) continue;
 
-                if (inputStack == null || inputStack.isEmpty()) continue;
+                    if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
+                        ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
 
-            if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
-            ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
+                        int outAmount = Math.round(RecipeModifier.applyModifiers(
+                            modifiers,
+                            RequirementTypesMM.REQUIREMENT_ITEM,
+                            IOType.OUTPUT,
+                            outputPearl.getCount(),
+                            false
+                        ));
 
-            int outAmount = Math.round(RecipeModifier.applyModifiers(
-                modifiers,
-                RequirementTypesMM.REQUIREMENT_ITEM,
-                IOType.OUTPUT,
-                outputPearl.getCount(),
-                false
-            ));
-
-            if (outAmount > 0) {
-                machineRecipe.addRequirement(new RequirementItem(
-                    IOType.OUTPUT,
-                    ItemUtils.copyStackWithSize(outputPearl, outAmount)
-                ));
+                        if (outAmount > 0) {
+                            machineRecipe.addRequirement(new RequirementItem(
+                                IOType.OUTPUT,
+                                ItemUtils.copyStackWithSize(outputPearl, outAmount)
+                            ));
+                            type = false; 
+                        }
+                        break;
+                    }
+                }
             }
-            break;
-        }
-    }
-}
 
             // Research tooltip and runtime check
             String research = recipe.getResearch();
