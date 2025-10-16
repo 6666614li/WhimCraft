@@ -18,6 +18,7 @@ import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ItemUtils;
 import hellfirepvp.modularmachinery.common.tiles.base.TileMultiblockMachineController;
+import net.minecraft.item.Item;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -122,6 +123,24 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                         ItemStack copied = stack.copy();
                         copied.setTagInfo((String) objects[0], (NBTBase) objects[1]);
                         machineRecipe.addRequirement(new RequirementItem(IOType.OUTPUT, copied));
+                        type = false;
+                    }
+                }
+            }
+
+            net.minecraft.item.Item primordialPearlItem = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "primordial_pearl"));
+
+            if (primordialPearlItem != null && type) { 
+                ItemStack inputStack = recipe.getRecipeInput().getMatchingStacks()[0]; 
+                ItemStack inputPearlRef = new ItemStack(primordialPearlItem, 1, 0);
+
+                if (ItemUtils.isSameItem(inputStack, inputPearlRef, false)) {
+
+                    ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
+                    int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, outputPearl.getCount(), false));
+                    
+                    if (outAmount > 0) {
+                        machineRecipe.addRequirement(new RequirementItem(IOType.OUTPUT, ItemUtils.copyStackWithSize(outputPearl, outAmount)));
                         type = false;
                     }
                 }
