@@ -36,6 +36,8 @@ import java.util.stream.Collectors;
  */
 public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
 
+    private static final ResourceLocation PRIMORDIAL_PEARL_RL = new ResourceLocation("thaumcraft", "primordial_pearl");
+
     public AdapterTC6InfusionMatrixResearch() {
         super(new ResourceLocation("thaumcraft", "whimcraft_infusion_matrix_research"));
     }
@@ -127,8 +129,6 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                     }
                 }
             }
-
-            Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
 
             if (primordialPearlItem != null) {
                 ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
