@@ -128,13 +128,12 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 }
             }
 
-            net.minecraft.item.Item primordialPearlItem = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "primordial_pearl"));
-
+            net.minecraft.item.Item primordialPearlItem = net.minecraft.item.Item.getByNameOrId("thaumcraft:primordial_pearl");
             if (primordialPearlItem != null && type) { 
                 ItemStack inputStack = recipe.getRecipeInput().getMatchingStacks()[0]; 
-                ItemStack inputPearlRef = new ItemStack(primordialPearlItem, 1, 0);
+                ItemStack inputPearlRef = new ItemStack(primordialPearlItem, 1, 0); 
 
-                if (ItemStack.isSameItem(inputStack, inputPearlRef)) {
+                if (ItemUtils.isSameItem(inputStack, inputPearlRef, false)) {
 
                     ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
                     int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, outputPearl.getCount(), false));
