@@ -133,8 +133,7 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 ItemStack inputStack = recipe.getRecipeInput().getMatchingStacks()[0]; 
                 ItemStack inputPearlRef = new ItemStack(primordialPearlItem, 1, 0); 
 
-                if (ItemUtils.isSameItem(inputStack, inputPearlRef, false)) {
-
+                if (inputStack.isItemEqual(inputPearlRef)) {
                     ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
                     int outAmount = Math.round(RecipeModifier.applyModifiers(modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, outputPearl.getCount(), false));
                     
