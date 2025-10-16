@@ -18,6 +18,7 @@ import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ItemUtils;
 import hellfirepvp.modularmachinery.common.tiles.base.TileMultiblockMachineController;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraft.item.Item;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
