@@ -131,7 +131,7 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 }
             }
 
-            Collection<InfusionRecipe> allInfusionRecipes = recipeManager.getRecipes(InfusionRecipe.TYPE);
+            Map<ResourceLocation, InfusionRecipe> allInfusionRecipes = CraftingManager.getInfusionRecipes();
             for (InfusionRecipe infusionRecipe : InfusionRecipe) {
 
                 Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
