@@ -131,23 +131,27 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                 }
             }
 
-            Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
+            for (InfusionRecipe recipe : allInfusionRecipes) {
+                Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
 
-            if (primordialPearlItem != null) {
-                ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
-                
-                for (ItemStack inputStack : inputStacks) {
-                    if (inputStack == null || inputStack.isEmpty()) continue;
+                if (primordialPearlItem != null) {
 
-                    if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
-                        ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
+                    ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
 
-                        int outAmount = Math.round(RecipeModifier.applyModifiers(
-                            modifiers,
-                            RequirementTypesMM.REQUIREMENT_ITEM,
-                            IOType.OUTPUT,
-                            outputPearl.getCount(),
-                            false
+                    for (ItemStack inputStack : inputStacks) {
+
+                        if (inputStack == null || inputStack.isEmpty()) continue;
+
+                        if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
+
+                            ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
+
+                            int outAmount = Math.round(RecipeModifier.applyModifiers(
+                                modifiers,
+                                RequirementTypesMM.REQUIREMENT_ITEM,
+                                IOType.OUTPUT,
+                                outputPearl.getCount(),
+                                false
                         ));
 
                         if (outAmount > 0) {
@@ -161,6 +165,9 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                     }
                 }
             }
+      }
+
+            
 
             // Research tooltip and runtime check
             String research = recipe.getResearch();
