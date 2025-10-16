@@ -130,42 +130,38 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                     }
                 }                
             }
-            Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
+            ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
 
-            if (primordialPearlItem != null) {
-            ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
-            boolean foundAny = false;
-    
-            for (ItemStack inputStack : inputStacks) {
-                if (inputStack == null || inputStack.isEmpty()) continue;
-        
-                if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
-            // 为每个匹配的堆栈单独创建输出
-                    ItemStack outputPearl = new ItemStack(primordialPearlItem, inputStack.getCount(), 1);
-            
-                    int outAmount = Math.round(RecipeModifier.applyModifiers(
-                        modifiers,
-                        RequirementTypesMM.REQUIREMENT_ITEM,
-                        IOType.OUTPUT,
-                        outputPearl.getCount(),
-                        false
-                    ));
-            
-                    if (outAmount > 0) {
-                        machineRecipe.addRequirement(new RequirementItem(
-                            IOType.OUTPUT,
-                            ItemUtils.copyStackWithSize(outputPearl, outAmount)
+                if (primordialPearlItem != null) {
+
+                    ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
+
+                    for (ItemStack inputStack : inputStacks) {
+
+                        if (inputStack == null || inputStack.isEmpty()) continue;
+
+                        if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
+
+                            ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
+
+                            int outAmount = Math.round(RecipeModifier.applyModifiers(
+                                modifiers,
+                                RequirementTypesMM.REQUIREMENT_ITEM,
+                                IOType.OUTPUT,
+                                outputPearl.getCount(),
+                                false
                         ));
-                        foundAny = true;
+
+                        if (outAmount > 0) {
+                            machineRecipe.addRequirement(new RequirementItem(
+                                IOType.OUTPUT,
+                                ItemUtils.copyStackWithSize(outputPearl, outAmount)
+                            ));
+                            type = false; 
+                        }
                     }
                 }
             }
-    
-    if (foundAny) {
-        type = false;
-    }
-}
-
             
             // Research tooltip and runtime check
             String research = recipe.getResearch();
