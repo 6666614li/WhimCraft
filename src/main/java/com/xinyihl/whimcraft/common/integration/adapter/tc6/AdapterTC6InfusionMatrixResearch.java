@@ -130,26 +130,49 @@ public class AdapterTC6InfusionMatrixResearch extends RecipeAdapter {
                     }
                 }                
             }
-            ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
 
-                InfusionRecipe recipe = (InfusionRecipe) tcRecipe;
-
-                Item primordialPearlItem = ItemsTC.primordialPearl;
-                if (primordialPearlItem == null) {
-                    return;
+            Item primordialPearlItem = ForgeRegistries.ITEMS.getValue(PRIMORDIAL_PEARL_RL);
+            if (primordialPearlItem != null) {
+                int totalPrimordialPearls = 0;
+    
+                ItemStack[] inputStacks = recipe.getRecipeInput().getMatchingStacks();
+                for (ItemStack inputStack : inputStacks) {
+                    if (inputStack != null && !inputStack.isEmpty() && 
+                        inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
+                        totalPrimordialPearls += inputStack.getCount();
+                    }
                 }
-
-                List<ItemStack> inputMain = recipe.getRecipeInput();
-
-                for (ItemStack inputStack : inputMain) {
-                    if (inputStack.isEmpty()) continue;
-
-
-                    if (inputStack.getItem() == primordialPearlItem && inputStack.getMetadata() == 0) {
-                        ItemStack outputPearl = new ItemStack(primordialPearlItem, 1, 1);
+    
+    // 统计组件中的 primordial_pearl
+                for (Object component : recipe.getComponents()) {
+                    if (component instanceof net.minecraft.item.crafting.Ingredient) {
+                        net.minecraft.item.crafting.Ingredient ingredient = (net.minecraft.item.crafting.Ingredient) component;
+                        for (ItemStack componentStack : ingredient.getMatchingStacks()) {
+                            if (componentStack != null && !componentStack.isEmpty() && 
+                                componentStack.getItem() == primordialPearlItem && componentStack.getMetadata() == 0) {
+                                totalPrimordialPearls += componentStack.getCount();
+                            }
+                        }
+                    }
                 }
+    
+    // 添加总输出
+                if (totalPrimordialPearls > 0) {
+                    ItemStack outputPearl = new ItemStack(primordialPearlItem, totalPrimordialPearls, 1);
+                    int outAmount = Math.round(RecipeModifier.applyModifiers(
+                        modifiers, RequirementTypesMM.REQUIREMENT_ITEM, IOType.OUTPUT, totalPrimordialPearls, false));
+        
+                    if (outAmount > 0) {
+                        machineRecipe.addRequirement(new RequirementItem(
+                            IOType.OUTPUT, ItemUtils.copyStackWithSize(outputPearl, outAmount)
+                        ));
+                        type = false;
+                    }
                 }
-            
+            }
+
+
+   
             // Research tooltip and runtime check
             String research = recipe.getResearch();
             if (research != null && !research.isEmpty()) {
